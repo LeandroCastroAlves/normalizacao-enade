@@ -50,6 +50,7 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+*.csv
 
 # Translations
 *.mo
@@ -129,4 +130,5 @@ dmypy.json
 .pyre/
 
 # retirar ide
-.idea/
+.idea
+
