@@ -1,0 +1,72 @@
+import pandas as pd
+import pyodbc
+
+arquivo = 'enade2019/microdados_enade_2019/2019/3.DADOS/microdados_enade_2019.txt'
+enade = pd.read_csv(arquivo, sep=";", decimal=",", error_bad_lines=False, index_col=False, dtype='unicode')
+server = 'ESTAGIO1-PC\SQLEXPRESS'
+database = 'enade'
+username = ''
+password = ''
+cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+password)
+cursor = cnxn.cursor()
+
+
+def presenca():
+    enade_pres = enade[["TP_PRES","TP_PR_GER","TP_PR_OB_FG","TP_PR_DI_FG","TP_PR_OB_CE","TP_PR_DI_CE"]]
+    for index, row in enade_pres.iterrows():
+        cursor.execute(
+            "INSERT INTO dbo.presenca (ID_ALUNO, TP_PRES, TP_PR_GER, TP_PR_OB_FG, TP_PR_DI_FG, TP_PR_OB_CE, TP_PR_DI_CE) values (?, ?, ?, ?, ?, ?, ?)",
+                (index, row.TP_PRES, row.TP_PR_GER, row.TP_PR_OB_FG, row.TP_PR_DI_FG, row.TP_PR_OB_CE, row.TP_PR_DI_CE)
+        )
+        cnxn.commit()
+
+
+def ies():
+    enade_ies = enade[["CO_IES","CO_CATEGAD","CO_ORGACAD"]]
+    enade_ies_drop_duplicates = enade_ies.drop_duplicates()
+    for index, row in enade_ies_drop_duplicates.iterrows():
+        cursor.execute(
+            "INSERT INTO dbo.ies (CO_IES,CO_CATEGAD,CO_ORGACAD) values (?, ?, ?)",
+                (row.CO_IES, row.CO_CATEGAD, row.CO_ORGACAD)
+        )
+        cnxn.commit()
+
+def curso():
+    enade_ies = enade[["CO_CURSO", "CO_GRUPO","CO_IES", "CO_MUNIC_CURSO","CO_UF_CURSO","CO_REGIAO_CURSO", "CO_MODALIDADE"]]
+    enade_ies_drop_duplicates = enade_ies.drop_duplicates()
+    for index, row in enade_ies_drop_duplicates.iterrows():
+        cursor.execute(
+            "INSERT INTO dbo.curso (CO_CURSO, CO_GRUPO,CO_IES, CO_MUNIC_CURSO,CO_UF_CURSO,CO_REGIAO_CURSO, CO_MODALIDADE) values (?, ?, ?, ?, ?, ?, ?)",
+                (row.CO_CURSO, row.CO_GRUPO, row.CO_IES, row.CO_MUNIC_CURSO, row.CO_UF_CURSO, row.CO_REGIAO_CURSO, row.CO_MODALIDADE)
+        )
+        cnxn.commit()
+
+def aluno():
+    enade_aluno = enade[["NU_IDADE", "TP_SEXO", "ANO_FIM_EM", "ANO_IN_GRAD", "CO_TURNO_GRADUACAO", "TP_INSCRICAO_ADM", "TP_INSCRICAO", "CO_CURSO"]]
+
+    for index, row in enade_aluno.iterrows():
+        cursor.execute(
+            "INSERT INTO dbo.aluno (ID_ALUNO, NU_IDADE, TP_SEXO, ANO_FIM_EM, ANO_IN_GRAD, CO_TURNO_GRADUACAO, TP_INSCRICAO_ADM, TP_INSCRICAO, CO_CURSO) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (index, row.NU_IDADE, row.TP_SEXO, row.ANO_FIM_EM, row.ANO_IN_GRAD, row.CO_TURNO_GRADUACAO, row.TP_INSCRICAO_ADM, row.TP_INSCRICAO, row.CO_CURSO)
+        )
+        cnxn.commit()
+
+
+enade = pd.read_csv('titanic.csv', sep=";", decimal=",", error_bad_lines=False, index_col=False, dtype='unicode')
+#enade = enade[["CO_TURNO_GRADUACAO"]]
+enade = enade.fillna(0)
+
+print(enade)
+
+
+
+
+#enade_ies = enade[["CO_IES","CO_CATEGAD","CO_ORGACAD","CO_GRUPO","CO_CURSO","CO_MODALIDADE","CO_MUNIC_CURSO","CO_UF_CURSO","CO_REGIAO_CURSO"]]
+#print(enade_ies.head())
+#enade_ies_drop_duplicates = enade_ies.drop_duplicates(subset=["CO_IES", "CO_CATEGAD","CO_ORGACAD","CO_MODALIDADE","CO_MUNIC_CURSO","CO_UF_CURSO","CO_REGIAO_CURSO"])
+#print(enade_ies_drop_duplicates.head())
+
+#enade_ies = enade[["CO_GRUPO","CO_CURSO","CO_MODALIDADE","CO_MUNIC_CURSO","CO_UF_CURSO","CO_REGIAO_CURSO"]]
+#print(enade_ies)
+#enade_ies_d = enade_ies.drop_duplicates()
+#print(enade_ies_d)
