@@ -58,16 +58,5 @@ def aluno():
         cnxn.commit()
 
 
-ies()
 
 
-
-#enade_ies = enade[["CO_IES","CO_CATEGAD","CO_ORGACAD","CO_GRUPO","CO_CURSO","CO_MODALIDADE","CO_MUNIC_CURSO","CO_UF_CURSO","CO_REGIAO_CURSO"]]
-#print(enade_ies.head())
-#enade_ies_drop_duplicates = enade_ies.drop_duplicates(subset=["CO_IES", "CO_CATEGAD","CO_ORGACAD","CO_MODALIDADE","CO_MUNIC_CURSO","CO_UF_CURSO","CO_REGIAO_CURSO"])
-#print(enade_ies_drop_duplicates.head())
-
-#enade_ies = enade[["CO_GRUPO","CO_CURSO","CO_MODALIDADE","CO_MUNIC_CURSO","CO_UF_CURSO","CO_REGIAO_CURSO"]]
-#print(enade_ies)
-#enade_ies_d = enade_ies.drop_duplicates()
-#print(enade_ies_d)
