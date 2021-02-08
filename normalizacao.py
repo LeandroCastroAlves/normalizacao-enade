@@ -1,9 +1,10 @@
 import pandas as pd
 import pyodbc
 
-arquivo = 'enade2019/microdados_enade_2019/2019/3.DADOS/microdados_enade_2019.txt'
+arquivo = 'dados/enade2019/microdados_enade_2019/2019/3.DADOS/microdados_enade_2019.txt'
 enade = pd.read_csv(arquivo, sep=";", decimal=".", error_bad_lines=False, index_col=False, dtype='unicode')
 server = 'ESTAGIO1-PC\SQLEXPRESS'
+
 database = 'enade'
 username = ''
 password = ''
@@ -57,7 +58,7 @@ def aluno():
         cnxn.commit()
 
 
-replace_questionario()
+ies()
 
 
 
