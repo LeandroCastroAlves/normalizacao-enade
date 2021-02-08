@@ -1,3 +1,0 @@
-from etl_questonario import replace_questionario
-
-replace_questionario()

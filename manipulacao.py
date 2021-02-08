@@ -11,6 +11,7 @@ cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+server+';DATABASE='+database
 cursor = cnxn.cursor()
 
 
+
 def replace_questionario():
     df = enade[
         ["QE_I01", "QE_I02", "QE_I03", "QE_I04", "QE_I05", "QE_I06", "QE_I07", "QE_I08", "QE_I09", "QE_I10", "QE_I11",
