@@ -132,3 +132,8 @@ dmypy.json
 # retirar ide
 .idea
 
+# outros
+dados/
+Projeto Enade/
+
+
