@@ -35,7 +35,7 @@ def uf():
     DESCRICAO VARCHAR(100),
     SIGLA VARCHAR(5), 
     CO_REGIAO INT NOT NULL,
-    CONSTRAINT PK_UF_REGIAO FOREIGN KEY(CO_REGIAO) REFERENCES dbo.REGIAO(CO_REGIAO));''')
+    CONSTRAINT FK_UF_REGIAO FOREIGN KEY(CO_REGIAO) REFERENCES dbo.REGIAO(CO_REGIAO));''')
     cnxn.commit()
     uf = dados[["CO_UF","DESCRICAO_UF","SIGLA_UF", "CO_REGIAO"]]
     uf_drop_duplicates = uf.drop_duplicates()  # valores duplicados por causa de outras colunas, retirados
@@ -51,7 +51,7 @@ def munic():
     cursor.execute('''CREATE TABLE MUNIC(CO_MUNIC INT PRIMARY KEY NOT NULL, 
     DESCRICAO VARCHAR(100), 
     CO_UF INT,
-    CONSTRAINT PK_MUNIC_UF FOREIGN KEY (CO_UF) REFERENCES dbo.UF(CO_UF))
+    CONSTRAINT FK_MUNIC_UF FOREIGN KEY (CO_UF) REFERENCES dbo.UF(CO_UF))
     ;''')
     cnxn.commit()
     munic = dados[["CO_MUNIC","DESCRICAO_MUNIC","CO_UF"]]

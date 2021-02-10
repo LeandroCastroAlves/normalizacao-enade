@@ -32,14 +32,13 @@ class ConexaoDB():
         self.desconecta()
         return res
 
+    def executa_DML_PR(self, sql, pr):
+        self.conecta()
+        self.cursor.execute(sql, pr)
+        self.con.commit()
+
     def executa_DML(self, sql):
         self.conecta()
         self.cursor.execute(sql)
-        self.cursor.commit()
-        res = self.cursor.fechall()
-        self.desconecta()
-        return res
+        self.con.commit()
 
-c = ConexaoDB()
-c.conecta()
-c.executa_DQL("select * from ies")
