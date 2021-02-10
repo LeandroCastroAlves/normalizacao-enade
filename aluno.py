@@ -4,17 +4,10 @@ from conn import ConexaoDB
 
 arquivo = 'dados/enade2019/microdados_enade_2019/2019/3.DADOS/microdados_enade_2019.txt'
 enade = pd.read_csv(arquivo, sep=";", decimal=".", error_bad_lines=False, index_col=False, dtype='unicode')
-server = 'ESTAGIO1-PC\SQLEXPRESS'
-database = 'enade'
-username = ''
-password = ''
-cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+password)
-cursor = cnxn.cursor()
+c = ConexaoDB()
 
 
 def tabela_aluno():
-    c = ConexaoDB()
-    c.conecta()
     c.executa_DML('''CREATE TABLE DBO.ALUNO(
     ID_ALUNO    int NOT NULL,
     ANO_PROVA int,

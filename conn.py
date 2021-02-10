@@ -1,14 +1,9 @@
-import pandas as pd
-import numpy as np
 import pyodbc
 
-
-import pyodbc
-import pandas as pd
 
 class ConexaoDB():
     def __init__(self, host = 'ESTAGIO1-PC\SQLEXPRESS', user = '',
-                 pwd = '', db = 'enade'):
+                 pwd = '', db = input('Banco de dados: ')):
         self.host = host
         self.user = user
         self.pwd = pwd
