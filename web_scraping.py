@@ -19,7 +19,7 @@ def carrega_dados_bruto():
             f.writerow([nome, link])
 
 
-def extrai_link_zip:
+def extrai_link_zip():
     df = pd.read_csv('links_dowload.csv', sep=',')
     df_link = df["Link"]
     l = csv.writer(open('links_zip.csv', 'w', newline='', encoding='utf-8'))
