@@ -1,9 +1,9 @@
 import pyodbc
 
-
 class ConexaoDB():
-    def __init__(self, host = 'ESTAGIO1-PC\SQLEXPRESS', user = '',
-                 pwd = '', db = 'enade'):
+
+    def __init__(self, host=input("Host: "), user=input("User: "),
+                 pwd=input("Senha: "), db=input("Banco: ")):
         self.host = host
         self.user = user
         self.pwd = pwd

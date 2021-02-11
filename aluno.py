@@ -2,12 +2,12 @@ import pandas as pd
 import pyodbc
 from conn import ConexaoDB
 
-arquivo = 'dados/enade2019/microdados_enade_2019/2019/3.DADOS/microdados_enade_2019.txt'
-enade = pd.read_csv(arquivo, sep=";", decimal=".", error_bad_lines=False, index_col=False, dtype='unicode')
+
 c = ConexaoDB()
 
 
 def tabela_aluno():
+    print("Criando tabela ALUNO.")
     c.executa_DML('''CREATE TABLE DBO.ALUNO(
     ID_ALUNO    int NOT NULL,
     ANO_PROVA int,
@@ -67,6 +67,8 @@ def tabela_aluno():
     CONSTRAINT FK_UF_CONCLUSAO_EM FOREIGN KEY (UF_CONCLUSAO_EM) REFERENCES dbo.UF (CO_UF)
     );'''
                   )
+    arquivo = 'dados/enade2019/microdados_enade_2019/2019/3.DADOS/microdados_enade_2019.txt'
+    enade = pd.read_csv(arquivo, sep=";", decimal=".", error_bad_lines=False, index_col=False, dtype='unicode')
     df = enade[
         ["NU_ANO", "NU_IDADE", "TP_SEXO", "ANO_FIM_EM", "ANO_IN_GRAD", "CO_TURNO_GRADUACAO", "CO_CURSO", "QE_I01", "QE_I02",
          "QE_I03", "QE_I04", "QE_I05", "QE_I06", "QE_I07", "QE_I08", "QE_I09", "QE_I10", "QE_I11", "QE_I12", "QE_I13",
@@ -74,7 +76,7 @@ def tabela_aluno():
          "QE_I25", "QE_I26", "NT_GER", "NT_FG", "NT_OBJ_FG", "NT_DIS_FG", "NT_FG_D1", "NT_FG_D1_PT", "NT_FG_D1_CT",
          "NT_FG_D2", "NT_FG_D2_PT", "NT_FG_D2_CT", "NT_CE", "NT_OBJ_CE", "NT_DIS_CE", "NT_CE_D1", "NT_CE_D2",
          "NT_CE_D3"]].fillna(0)
-
+    print("Executando Replace tabela ALUNO | Questionarios.")
     a = {'A': 'Solteiro(a)', 'B': 'Casado(a)', 'C': 'Separado(a) judicialmente/divorciado(a)', 'D': 'Viúvo(a)',
          'E': 'Outro'}
     df["QE_I01"] = df["QE_I01"].map(a).fillna(0)
@@ -176,6 +178,7 @@ def tabela_aluno():
          'G': 'Foi a única onde tive aprovação', 'H': 'Possibilidade de ter bolsa de estudo', 'I': 'Outro motivo'}
     df["QE_I26"] = df["QE_I26"].map(a).fillna(0)
     # FIM ALTERACAO VALOR QUESTIONARIO
+    print("Carregando tabela ALUNO.")
     for index, row in df.iterrows():
         c.executa_DML_PR(
             "INSERT INTO DBO.ALUNO (ID_ALUNO,ANO_PROVA,NU_IDADE,TP_SEXO,ANO_FIM_EM,ANO_IN_GRAD,CO_TURNO_GRADUACAO,CO_CURSO,ESTADO_CIVIL,COR_RACA,NACIONALIDADE,ESCOLARIDADE_PAI,ESCOLARIDADE_MAE,MORADIA,QTD_MORADORES,RENDA_FAMILIAR,SITUACAO_FINANCEIRA,SITUACAO_TRABALHO,BOLSA_ESTUDO,BOLSA_PERMANENCIA,BOLSA_ACADEMICA,BOLSA_PROGRAMA_EXTERIOR,INGRESSO_ACAO_AFIRMATIVA,"
@@ -188,5 +191,6 @@ def tabela_aluno():
                 row.QE_I26, row.NT_GER, row.NT_FG, row.NT_OBJ_FG, row.NT_DIS_FG, row.NT_FG_D1, row.NT_FG_D1_PT,
                 row.NT_FG_D1_CT, row.NT_FG_D2, row.NT_FG_D2_PT, row.NT_FG_D2_CT, row.NT_CE, row.NT_OBJ_CE, row.NT_DIS_CE,
                 row.NT_CE_D1, row.NT_CE_D2, row.NT_CE_D3))
+    print("Normalização Concluida Com Sucesso!")
 
 
