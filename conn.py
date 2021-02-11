@@ -3,7 +3,7 @@ import pyodbc
 
 class ConexaoDB():
     def __init__(self, host = 'ESTAGIO1-PC\SQLEXPRESS', user = '',
-                 pwd = '', db = input('Banco de dados: ')):
+                 pwd = '', db = 'enade'):
         self.host = host
         self.user = user
         self.pwd = pwd
