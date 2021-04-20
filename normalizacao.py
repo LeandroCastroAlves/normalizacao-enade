@@ -2,13 +2,11 @@ import pandas as pd
 from conn import ConexaoDB
 c = ConexaoDB()
 
-
 dados_grupo_curso = pd.read_csv('grupo_cursos.csv', sep=";")
 
-
-
 def categ_adm_ies():
-    c.executa_DML('''CREATE TABLE DBO.CATEG_ADM_IES(
+    c.executa_DML(''' DROP TABLE IF EXISTS DBO.CATEG_ADM_IES;
+    CREATE TABLE DBO.CATEG_ADM_IES(
     CO_CATEG_ADM_IES INT NOT NULL PRIMARY KEY,
     DESCRICAO VARCHAR(100),
     ENTIDADE VARCHAR(100),
