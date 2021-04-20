@@ -18,4 +18,4 @@ executar processo de normalização:
 
 Depois de inserido os dados corretamente no programa, o sistema pega o arquivo enade no site, baixa e extrai. As tabelas são criadas e em seguida os dados são inseridos.
 
-Obs: Os dados não são inseridos em paralelo pelo fato de as tabelas serem relacionadas entre si, e isso pode fazer voce esperar um pouco - dependendo da performance da sua maquina - quando começar a carregar a tabela aluno.
+Obs: Os dados não são inseridos em paralelo pelo fato de as tabelas serem relacionadas entre si, e isso pode fazer voce esperar um pouco - dependendo da performance da sua maquina - quando começar o processo de carga na tabela aluno.
