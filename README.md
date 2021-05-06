@@ -6,7 +6,7 @@ Primeiramente baixe e instale o Sql Server.
 
 O banco de dados tem que ser criado antes de iniciar o processo de normalização automatica.
 
-Os seguintes dados serão pedido quando executado o main.
+Os seguintes dados serão pedidos quando executado o main.
 
 ```
 Host: 
